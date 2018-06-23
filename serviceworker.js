@@ -7,7 +7,8 @@ var urlsToCache =[
     '/index.html',
     '/dist/main.css',
     '/dist/bundle.js',
-    '/resources/scripts/script.js'
+    '/resources/scripts/script.js',
+    '/offline.html'
 ];
 
 self.addEventListener('install',(event)=>{
@@ -29,6 +30,29 @@ self.addEventListener('fetch',(event)=>{
                 return response;
             }
             return fetch(evnt.request)
+        })
+    )
+})
+
+//offline page
+self.addEventListener('fetch',(event)=>{
+    event.respondWith(
+        caches.match(event.request)
+        .then((response)=>{
+            if(response){
+                return response;
+            }
+            else{
+                return fetch(event.request)
+                .then((response)=>{
+                    return response;
+                })
+            }
+        }).catch((err)=>{
+            return caches.open(STATIC_CACHE)
+            .then(function(cache){
+                return cache.match('/offline.html');
+            })
         })
     )
 })
