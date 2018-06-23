@@ -8,7 +8,14 @@ var urlsToCache =[
     '/dist/main.css',
     '/dist/bundle.js',
     '/resources/scripts/script.js',
-    '/offline.html'
+    '/offline.html',
+    '/resources/images/logo.png',
+    '/resources/images/cake.png',
+    '/resources/images/pastery.png',
+    'resources/images/macroon.png',
+    '/resources/images/icecream.png',
+    '/resources/images/cookie.png',
+    '/resources/images/donut.png',
 ];
 
 self.addEventListener('install',(event)=>{
@@ -21,18 +28,18 @@ self.addEventListener('install',(event)=>{
     )
 })
 
-//getting the pages up offline
-self.addEventListener('fetch',(event)=>{
-    event.respondWith(
-        caches.match(event.request)
-        .then((response)=>{
-            if(response){
-                return response;
-            }
-            return fetch(evnt.request)
-        })
-    )
-})
+// //getting the pages up offline
+// self.addEventListener('fetch',(event)=>{
+//     event.respondWith(
+//         caches.match(event.request)
+//         .then((response)=>{
+//             if(response){
+//                 return response;
+//             }
+//             return fetch(event.request)
+//         })
+//     )
+// })
 
 //offline page
 self.addEventListener('fetch',(event)=>{
